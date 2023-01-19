@@ -1,0 +1,5 @@
+version: "3.7"
+
+services:
+  bullseye32:
+    image: jcfrane/php:8.2-swoole
