@@ -7,6 +7,8 @@ docker buildx use mybuilder
 ````
 
 ### Build images and run
+For example build 8.3-bullseye image
 ````
-docker buildx build . --push --platform linux/arm/v7,linux/amd64,linux/arm64 --tag jcfrane/php:8.2-swoole
+cd 8.3-bullseye
+docker buildx build . --push --platform linux/arm/v7,linux/amd64,linux/arm64 --tag jcfrane/php:8.3-bullseye
 ````

@@ -1,4 +1,4 @@
-FROM phpswoole/swoole:5.0.1-php8.2
+FROM php:8.3-fpm-bullseye
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -11,8 +11,11 @@ RUN apt-get update \
         libzip-dev \
         unzip \
         zip  \
-    && apt-get clean
-RUN docker-php-ext-configure zip \
+    && apt-get clean \
+    && pecl install redis \
+    && docker-php-ext-configure gd \
+        --with-jpeg=/usr/include/ \
+    && docker-php-ext-configure zip \
     && docker-php-ext-install \
         bcmath \
         gd \
@@ -25,8 +28,7 @@ RUN docker-php-ext-configure zip \
         zip \
     && docker-php-ext-enable gd \
     && docker-php-ext-enable redis \
-    && docker-php-ext-configure gd \
-        --with-jpeg=/usr/include/ \
-    && rm -rf /var/lib/apt/lists/*; \
+    && rm -rf /var/lib/apt/lists/*;
 
-EXPOSE 8000
+EXPOSE 9000
+CMD ["php-fpm"]
